@@ -261,7 +261,11 @@ class Browser:
         event_type = cdp.target.TargetInfoChanged
 
         async def get_handler(event: cdp.target.TargetInfoChanged) -> None:
-            future.set_result(event)
+            # ignore TargetInfoChanged event from browser startup
+            if event.target_info.url != "about:blank" or (
+                url == "about:blank" and event.target_info.url == "about:blank"
+            ):
+                future.set_result(event)
 
         self.connection.add_handler(event_type, get_handler)
 
