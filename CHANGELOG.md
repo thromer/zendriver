@@ -9,15 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+### Added
+
+### Changed
+
+### Removed
+
+## [0.6.0] - 2025-04-20
+
+### Fixed
+
 - `Browser.get` and `Tab.close` will now wait for their appropiate target events before returning @ccev
 
 ### Added
 
 - Added `Tab.save_snapshot` to export the current page to MHTML format.
-
-### Changed
-
-### Removed
 
 ## [0.5.2] - 2025-04-09
 
