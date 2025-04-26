@@ -918,6 +918,9 @@ class Tab(Connection):
         event_type = cdp.target.TargetDestroyed
 
         async def close_handler(event: cdp.target.TargetDestroyed) -> None:
+            if future.done():
+                return
+
             if self.target and event.target_id == self.target.target_id:
                 future.set_result(event)
 

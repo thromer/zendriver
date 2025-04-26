@@ -261,6 +261,9 @@ class Browser:
         event_type = cdp.target.TargetInfoChanged
 
         async def get_handler(event: cdp.target.TargetInfoChanged) -> None:
+            if future.done():
+                return
+
             # ignore TargetInfoChanged event from browser startup
             if event.target_info.url != "about:blank" or (
                 url == "about:blank" and event.target_info.url == "about:blank"
