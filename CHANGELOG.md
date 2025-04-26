@@ -9,13 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fix race condition in `Browser.get` and `Tab.close` which could cause exceptions, especially when running multiple browsers in parallel @stephanlensky
-
 ### Added
 
 ### Changed
 
 ### Removed
+
+## [0.6.1] - 2025-04-25
+
+### Fixed
+
+- Fix race condition in `Browser.get` and `Tab.close` which could cause exceptions, especially when running multiple browsers in parallel @stephanlensky
 
 ## [0.6.0] - 2025-04-20
 
