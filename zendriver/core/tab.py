@@ -1285,7 +1285,7 @@ class Tab(Connection):
                 arguments=[cdp.runtime.CallArgument(object_id=body.object_id)],
             )
         )
-
+      
     async def save_snapshot(self, filename: str = "snapshot.mhtml") -> None:
         """
         Saves a snapshot of the page.
@@ -1302,6 +1302,44 @@ class Tab(Connection):
 
         with open(filename, "w") as file:
             file.write(data)
+            
+    async def take_screenshot(
+        self,
+        format: str = "jpeg",
+        full_page: bool = False,
+    ) -> str:
+        """
+        Takes a screenshot of the page.
+        This is not the same as :py:obj:`Element.take_screenshot`, which takes a screenshot of a single element only
+
+        :param format: jpeg or png (defaults to jpeg)
+        :type format: str
+        :param full_page: when False (default) it captures the current viewport. when True, it captures the entire page
+        :type full_page: bool
+        :return: screenshot data as base64 encoded
+        :rtype: str
+        """
+        if self.target is None:
+            raise ValueError("target is none")
+
+        await self.sleep()  # update the target's url
+
+        if format.lower() in ["jpg", "jpeg"]:
+            format = "jpeg"
+        elif format.lower() in ["png"]:
+            format = "png"
+
+        data = await self.send(
+            cdp.page.capture_screenshot(
+                format_=format, capture_beyond_viewport=full_page
+            )
+        )
+        if not data:
+            raise ProtocolException(
+                "could not take screenshot. most possible cause is the page has not finished loading yet."
+            )
+
+        return str(data)
 
     async def save_screenshot(
         self,
@@ -1322,19 +1360,11 @@ class Tab(Connection):
         :return: the path/filename of saved screenshot
         :rtype: str
         """
-        if self.target is None:
-            raise ValueError("target is none")
-
-        await self.sleep()  # update the target's url
-        path = None
-
         if format.lower() in ["jpg", "jpeg"]:
             ext = ".jpg"
-            format = "jpeg"
 
         elif format.lower() in ["png"]:
             ext = ".png"
-            format = "png"
 
         if not filename or filename == "auto":
             parsed = urllib.parse.urlparse(self.target.url)
@@ -1347,15 +1377,9 @@ class Tab(Connection):
         else:
             path = pathlib.Path(filename)
         path.parent.mkdir(parents=True, exist_ok=True)
-        data = await self.send(
-            cdp.page.capture_screenshot(
-                format_=format, capture_beyond_viewport=full_page
-            )
-        )
-        if not data:
-            raise ProtocolException(
-                "could not take screenshot. most possible cause is the page has not finished loading yet."
-            )
+
+        data = await self.take_screenshot(format=format, full_page=full_page)
+
         import base64
 
         data_bytes = base64.b64decode(data)
