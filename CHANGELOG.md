@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added `tab.screenshot_b64` and `element.screenshot_b64` methods to return screenshot as base64 string @falmar
+- Added `Tab.screenshot_b64` and `Element.screenshot_b64` methods to return screenshot as base64 string @falmar
+- Added `Tab.print_to_pdf` to print the current page to a PDF file @stephanlensky
 
 ### Changed
 

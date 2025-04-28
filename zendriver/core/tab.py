@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import base64
 import datetime
 import logging
 import pathlib
@@ -1381,13 +1382,32 @@ class Tab(Connection):
 
         data = await self.screenshot_b64(format=format, full_page=full_page)
 
-        import base64
-
         data_bytes = base64.b64decode(data)
         if not path:
             raise RuntimeError("invalid filename or path: '%s'" % filename)
         path.write_bytes(data_bytes)
         return str(path)
+
+    async def print_to_pdf(self, filename: PathLike, **kwargs: Any) -> pathlib.Path:
+        """
+        Prints the current page to a PDF file and saves it to the specified path.
+
+        :param filename: The path where the PDF will be saved.
+        :param kwargs: Additional options for printing to be passed to :py:obj:`cdp.page.print_to_pdf`.
+        :return: The path to the saved PDF file.
+        :rtype: pathlib.Path
+        """
+        filename = pathlib.Path(filename)
+        if filename.is_dir():
+            raise ValueError(
+                f"filename {filename} must be a file path, not a directory"
+            )
+
+        data, _ = await self.send(cdp.page.print_to_pdf(**kwargs))
+
+        data_bytes = base64.b64decode(data)
+        filename.write_bytes(data_bytes)
+        return filename
 
     async def set_download_path(self, path: PathLike):
         """
