@@ -1285,7 +1285,7 @@ class Tab(Connection):
                 arguments=[cdp.runtime.CallArgument(object_id=body.object_id)],
             )
         )
-      
+
     async def save_snapshot(self, filename: str = "snapshot.mhtml") -> None:
         """
         Saves a snapshot of the page.
@@ -1302,15 +1302,15 @@ class Tab(Connection):
 
         with open(filename, "w") as file:
             file.write(data)
-            
-    async def take_screenshot(
+
+    async def screenshot_b64(
         self,
         format: str = "jpeg",
         full_page: bool = False,
     ) -> str:
         """
-        Takes a screenshot of the page.
-        This is not the same as :py:obj:`Element.take_screenshot`, which takes a screenshot of a single element only
+        Takes a screenshot of the page and return the result as a base64 encoded string.
+        This is not the same as :py:obj:`Element.screenshot_b64`, which takes a screenshot of a single element only
 
         :param format: jpeg or png (defaults to jpeg)
         :type format: str
@@ -1339,7 +1339,7 @@ class Tab(Connection):
                 "could not take screenshot. most possible cause is the page has not finished loading yet."
             )
 
-        return str(data)
+        return data
 
     async def save_screenshot(
         self,
@@ -1367,6 +1367,7 @@ class Tab(Connection):
             ext = ".png"
 
         if not filename or filename == "auto":
+            assert self.target is not None
             parsed = urllib.parse.urlparse(self.target.url)
             parts = parsed.path.split("/")
             last_part = parts[-1]
@@ -1378,7 +1379,7 @@ class Tab(Connection):
             path = pathlib.Path(filename)
         path.parent.mkdir(parents=True, exist_ok=True)
 
-        data = await self.take_screenshot(format=format, full_page=full_page)
+        data = await self.screenshot_b64(format=format, full_page=full_page)
 
         import base64
 

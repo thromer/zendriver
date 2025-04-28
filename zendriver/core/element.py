@@ -810,14 +810,14 @@ class Element:
         await self.update()
         return await self.tab.query_selector(selector, self)
 
-    async def take_screenshot(
+    async def screenshot_b64(
         self,
         format: str = "jpeg",
         scale: typing.Optional[typing.Union[int, float]] = 1,
-    ):
+    ) -> str:
         """
-        Takes a screenshot of this element (only)
-        This is not the same as :py:obj:`Tab.take_screenshot`, which takes a "regular" screenshot
+        Takes a screenshot of this element (only) and return the result as a base64 encoded string.
+        This is not the same as :py:obj:`Tab.screenshot_b64`, which takes a "regular" screenshot
 
         When the element is hidden, or has no size, or is otherwise not capturable, a RuntimeError is raised
 
@@ -848,7 +848,7 @@ class Element:
                 "could not take screenshot. most possible cause is the page has not finished loading yet."
             )
 
-        return str(data)
+        return data
 
     async def save_screenshot(
         self,
@@ -890,7 +890,7 @@ class Element:
 
         path.parent.mkdir(parents=True, exist_ok=True)
 
-        data = await self.take_screenshot(format, scale)
+        data = await self.screenshot_b64(format, scale)
 
         data_bytes = base64.b64decode(data)
         if not path:
