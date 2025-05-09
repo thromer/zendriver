@@ -93,7 +93,7 @@ async def test_add_handler_module_event(browser: zd.Browser):
 
     tab.add_handler(zd.cdp.network, request_handler)
 
-    assert len(tab.handlers) == 26
+    assert len(tab.handlers) == 27
 
 
 async def test_remove_handlers(browser: zd.Browser):
