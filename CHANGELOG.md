@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Add an optional `special_characters` flag to `Element.send_keys` to support sending special characters (e.g. emojis) @nathanfallet
+
 ### Added
 
 ### Changed
