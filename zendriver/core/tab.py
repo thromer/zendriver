@@ -558,14 +558,17 @@ class Tab(Connection):
         for nid in node_ids:
             node = util.filter_recurse(doc, lambda n: n.node_id == nid)
             if not node:
-                node = await self.send(cdp.dom.resolve_node(node_id=nid))  # type: ignore
+                try:
+                    node = await self.send(cdp.dom.resolve_node(node_id=nid))  # type: ignore
+                except ProtocolException:
+                    continue
                 if not node:
                     continue
                 # remote_object = await self.send(cdp.dom.resolve_node(backend_node_id=node.backend_node_id))
                 # node_id = await self.send(cdp.dom.request_node(object_id=remote_object.object_id))
             try:
                 elem = element.create(node, self, doc)
-            except:  # noqa
+            except Exception:
                 continue
             if elem.node_type == 3:
                 # if found element is a text node (which is plain text, and useless for our purpose),
