@@ -1624,6 +1624,10 @@ class Tab(Connection):
             - navigator.language
             - navigator.platform
 
+        Note: In most cases, you should instead pass the user_agent option to zendriver.start().
+        This ensures that the user agent is set before the browser starts and correctly applies to
+        all pages and requests.
+
         :param user_agent: user agent string
         :type user_agent: str
         :param accept_language: accept language string
