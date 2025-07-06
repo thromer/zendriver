@@ -11,21 +11,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-### Changed
-
-### Removed
-
-## [0.10.0] - 2025-07-04
-
 ### Fixed
 
 - Refactor element waiting loops in `find_*` and `select*` methods. @H1steria
 - Improve `query_selector` error handling to consistently return `None` when a node is not found. @H1steria
-- add user agent option and auto-generate for headless to bypass cloudflare javascript challenge. @H1steria
+- Add user_agent option to allow bypassing cloudflare javascript challenge in headless mode. @H1steria
 
 ### Added
 
 - Added `mouse_move` and `mouse_click` methods from nodriver. @H1steria
+
+### Changed
+
+### Removed
 
 ## [0.9.0] - 2025-07-01
 
