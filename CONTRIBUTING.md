@@ -128,7 +128,7 @@ After you get in touch, feel free to submit a pull request just like you would f
 
 This repository is formatted and linted with [`ruff`](https://docs.astral.sh/ruff/) and type-checked with [`mypy`](https://mypy-lang.org/). Currently, not all existing code passes the `mypy` checks, but all net-new contributions should be 100% error-free in order to be merged.
 
-For convenience, `ruff` and `mypy` can be run against the entire codebase with the [`scripts/lint.sh`](blob/main/scripts/lint.sh) helper script.
+For convenience, `ruff` and `mypy` can be run against the entire codebase with the [`scripts/lint.sh`](scripts/lint.sh) helper script.
 
 ## Attribution
 
