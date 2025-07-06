@@ -33,7 +33,6 @@ class Config:
         self,
         user_data_dir: Optional[PathLike] = AUTO,
         headless: Optional[bool] = False,
-        user_agent: Optional[str] = None,
         browser_executable_path: Optional[PathLike] = AUTO,
         browser_args: Optional[List[str]] = AUTO,
         sandbox: Optional[bool] = True,
@@ -43,6 +42,7 @@ class Config:
         expert: bool | None = AUTO,
         browser_connection_timeout: float = 0.25,
         browser_connection_max_tries: int = 10,
+        user_agent: Optional[str] = None,
         **kwargs: Any,
     ):
         """
