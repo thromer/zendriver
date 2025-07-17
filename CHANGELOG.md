@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Removed
+
+## [0.11.0] - 2025-07-16
+
+### Added
+
 - Complete rewrite of keyboard input system with new `KeyEvents` class in `zendriver.core.keys` @hvgupta 
   - Added support for modifiers (Ctrl, Alt, Shift, Meta)
   - Added support for special keys including arrows, escape, delete and backspace
@@ -25,8 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Element.send_keys()` now uses the new `KeyEvents` system (it is still backwards compatible with passing a string) @hvgupta 
 - Key event processing now properly handles modifier key sequences @hvgupta 
 - Update CDP schemas @nathanfallet
-
-### Removed
 
 ## [0.10.2] - 2025-07-06
 
