@@ -1,8 +1,9 @@
-from enum import Enum, IntEnum, StrEnum
+from enum import Enum, IntEnum
+from typing import List, Optional, Tuple, Union
+
 import emoji
-from typing import Union, List, Tuple, Optional
-from typing_extensions import TypedDict
 import grapheme  # type: ignore
+from typing_extensions import TypedDict
 
 
 class KeyModifiers(IntEnum):
@@ -40,7 +41,7 @@ class SpecialKeys(Enum):
     META = ("Meta", 91)  # internal use only
 
 
-class KeyPressEvent(StrEnum):
+class KeyPressEvent(str, Enum):
     """Enumeration of different types of key press events."""
 
     KEY_DOWN = "keyDown"
