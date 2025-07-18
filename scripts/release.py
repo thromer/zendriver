@@ -88,9 +88,9 @@ def ensure_on_main_branch() -> None:
 
 
 def ensure_github_token() -> str:
-    github_token = os.environ.get("GITHUB_TOKEN")
+    github_token = os.environ.get("CDPDRIVER_GITHUB_TOKEN")
     if not github_token:
-        print("Error: $GITHUB_TOKEN environment variable must be set")
+        print("Error: $CDPDRIVER_GITHUB_TOKEN environment variable must be set")
         sys.exit(1)
     return github_token
 
