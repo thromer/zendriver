@@ -37,7 +37,7 @@ import requests  # type: ignore
 REPO_ROOT = Path(__file__).parent.parent
 
 # for creating GitHub release
-GITHUB_REPO_SLUG = "stephanlensky/zendriver"
+GITHUB_REPO_SLUG = "cdpdriver/zendriver"
 
 PYPROJECT_TOML = Path("pyproject.toml")
 PYPROJECT_VERSION_REGEX = r"^version = \"(?P<version>\d+\.\d+\.\d+)\"$"
