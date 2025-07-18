@@ -9,13 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Remove usage of StrEnum to fix compatibility with Python 3.10 @stephanlensky
-
 ### Added
 
 ### Changed
 
 ### Removed
+
+## [0.12.1] - 2025-07-17
+
+### Fixed
+
+- Remove usage of StrEnum to fix compatibility with Python 3.10 @stephanlensky
 
 ## [0.12.0] - 2025-07-17
 
