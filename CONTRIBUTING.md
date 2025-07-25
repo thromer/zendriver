@@ -117,7 +117,7 @@ When submitting a pull request, please stick to the following guidelines:
 3. Get credit for your work! Add your changes to [`CHANGELOG.md`](CHANGELOG.md) under the `[UNRELEASED]` section and optionally include your GitHub handle at the end of the line.
 
 > [!TIP]
-> Here's an example of how you can format your entry in the changelog. Add the entry in whichever category is most appropriate, and place it after any existing entries in that category.
+> Here's an example of how you can format your entry in the changelog. Add the entry in whichever category is most appropriate. If there are any existing entries in the category, just place it after the last entry in that category.
 >
 > ```markdown
 > ## [Unreleased]
