@@ -124,7 +124,7 @@ When submitting a pull request, please stick to the following guidelines:
 >
 > ### Fixed
 >
-> - Fixed (some bug) @yourgithubhandle
+> - Fixed a bug with caused the browser to crash @yourgithubhandle
 >
 > ### Added
 >
