@@ -6,7 +6,7 @@ import secrets
 import sys
 import tempfile
 import zipfile
-from typing import Any, List, Optional, Union
+from typing import Any, List, Literal, Optional, Union
 
 __all__ = [
     "Config",
@@ -23,6 +23,8 @@ is_posix = sys.platform.startswith(("darwin", "cygwin", "linux", "linux2"))
 PathLike = Union[str, pathlib.Path]
 AUTO = None
 
+BrowserType = Literal["chrome", "brave", "auto"]
+
 
 class Config:
     """
@@ -34,7 +36,7 @@ class Config:
         user_data_dir: Optional[PathLike] = AUTO,
         headless: Optional[bool] = False,
         browser_executable_path: Optional[PathLike] = AUTO,
-        browser: str = "auto",
+        browser: BrowserType = "auto",
         browser_args: Optional[List[str]] = AUTO,
         sandbox: Optional[bool] = True,
         lang: Optional[str] = None,
@@ -75,7 +77,7 @@ class Config:
         :type user_data_dir: PathLike
         :type headless: bool
         :type browser_executable_path: PathLike
-        :type browser: str
+        :type browser: BrowserType
         :type browser_args: list[str]
         :type sandbox: bool
         :type lang: str
@@ -306,7 +308,7 @@ def find_binary(candidates):
     return winner
 
 
-def find_executable(browser: str = "auto") -> PathLike:
+def find_executable(browser: BrowserType = "auto") -> PathLike:
     """
     Finds the executable for the specified browser and returns its disk path.
     :param browser: The browser to find. Can be "chrome", "brave" or "auto".
