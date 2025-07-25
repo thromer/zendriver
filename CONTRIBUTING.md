@@ -116,6 +116,23 @@ When submitting a pull request, please stick to the following guidelines:
    - Note, at the time of writing there are still many, many `mypy` errors left over from the `nodriver` fork. Please disregard these and consider only errors related to the code you have changed.
 3. Get credit for your work! Add your changes to [`CHANGELOG.md`](CHANGELOG.md) under the `[UNRELEASED]` section and optionally include your GitHub handle at the end of the line.
 
+> [!TIP]
+> Here's an example of how you can format your entry in the changelog. Add the entry in whichever category is most appropriate, and place it after any existing entries in that category.
+>
+> ```markdown
+> ## [Unreleased]
+>
+> ### Fixed
+>
+> - Fixed (some bug) @yourgithubhandle
+>
+> ### Added
+>
+> ### Changed
+>
+> ### Removed
+> ```
+
 ### Improving The Documentation
 
 Documentation improvements are always welcome! If you are interested in improving the documentation, please submit an enhancement issue (see [Suggesting Enhancements](#suggesting-enhancements)) so that we can discuss the best place to put it.
