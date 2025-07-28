@@ -19,6 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Remove Connection `__getattr__` and replace it with declared `@property` @nathanfallet
+- Deprecate Element `__getattr__` and add `get(name: str)` method @nathanfallet
+
 ### Removed
 
 ## [0.13.0] - 2025-07-24

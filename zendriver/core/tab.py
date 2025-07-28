@@ -130,7 +130,6 @@ class Tab(Connection):
     """
 
     browser: Browser | None
-    _download_behavior: List[str] | None = None
 
     def __init__(
         self,
@@ -1490,7 +1489,7 @@ class Tab(Connection):
                         if not any([_ in v for _ in ("http", "//", "/")]):
                             continue
                         abs_url = urllib.parse.urljoin(
-                            "/".join(self.url.rsplit("/")[:3]), v
+                            "/".join(self.url.rsplit("/")[:3] if self.url else []), v
                         )
                         if not abs_url.startswith(("http", "//", "ws")):
                             continue
@@ -1650,7 +1649,7 @@ class Tab(Connection):
             await self.wait()
 
         # there must be a better way...
-        origin = "/".join(self.url.split("/", 3)[:-1])
+        origin = "/".join(self.url.split("/", 3)[:-1] if self.url else [])
 
         items = await self.send(
             cdp.dom_storage.get_dom_storage_items(
@@ -1675,7 +1674,7 @@ class Tab(Connection):
         if self.target is None or not self.target.url:
             await self.wait()
         # there must be a better way...
-        origin = "/".join(self.url.split("/", 3)[:-1])
+        origin = "/".join(self.url.split("/", 3)[:-1] if self.url else [])
 
         await asyncio.gather(
             *[
@@ -1756,14 +1755,6 @@ class Tab(Connection):
             return False
 
         return other.target == self.target
-
-    def __getattr__(self, item):
-        try:
-            return getattr(self._target, item)
-        except AttributeError:
-            raise AttributeError(
-                f'"{self.__class__.__name__}" has no attribute "%s"' % item
-            )
 
     def __repr__(self):
         extra = ""
