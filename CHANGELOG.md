@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+### Added
+
+### Changed
+
+### Removed
+
+## [0.13.1] - 2025-07-27
+
+### Fixed
+
 - Remove unnecessary usage of `typing_extensions` (fixes `No module named 'typing_extensions'` error) @stephanlensky
 - Fix verify_cf() @H1steria
 - Fix relative coordinates of flash_point() @H1steria
@@ -21,8 +31,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Remove Connection `__getattr__` and replace it with declared `@property` @nathanfallet
 - Deprecate Element `__getattr__` and add `get(name: str)` method @nathanfallet
-
-### Removed
 
 ## [0.13.0] - 2025-07-24
 
