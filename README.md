@@ -1,8 +1,15 @@
 # Zendriver ✌️
 
+[![License](https://img.shields.io/github/license/cdpdriver/zendriver)](LICENSE)
+[![Pypi Version](https://img.shields.io/pypi/v/zendriver)](https://pypi.org/project/zendriver/)
+[![Issues](https://img.shields.io/github/issues/cdpdriver/zendriver)]()
+[![Pull Requests](https://img.shields.io/github/issues-pr/cdpdriver/zendriver)]()
+[![codecov](https://codecov.io/github/cdpdriver/zendriver/branch/main/graph/badge.svg?token=F7K641TYFZ)](https://codecov.io/github/cdpdriver/zendriver)
+
 > This package is a fork of [`ultrafunkamsterdam/nodriver`](https://github.com/ultrafunkamsterdam/nodriver/), created to add new features, compile unmerged bugfixes, and increase community engagement.
 
-**Documentation:** [https://zendriver.dev](https://zendriver.dev)
+* **Documentation:** [zendriver.dev](https://zendriver.dev)
+* **AI-generated wiki:** [deepwiki.com/cdpdriver/zendriver](https://deepwiki.com/cdpdriver/zendriver)
 
 Zendriver is a blazing fast, async-first, undetectable webscraping/web automation framework implemented using the Chrome Devtools Protocol. Visit websites, scrape content, and run JavaScript using a real browser (no Selenium/Webdriver) all with just a few lines of Python.
 
