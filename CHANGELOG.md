@@ -9,11 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Re-add nodriver evaluate serialization options for improved JavaScript evaluation @dbrun3
+- Add nodriver evaluate serialization options for improved JavaScript evaluation @dbrun3
 
 ### Added
 
-- Fix: allow reset expect and intercept @nathanfallet
+- Allow reset expect and intercept @nathanfallet
 
 ### Changed
 
