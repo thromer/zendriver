@@ -289,3 +289,67 @@ async def test_intercept_with_reload(browser: zd.Browser) -> None:
         assert body is not None
         # original_response = loads(body)
         # assert original_response["name"] == "Zendriver"
+
+
+async def test_evaluate_complex_object_no_error(browser: zd.Browser) -> None:
+    tab = await browser.get(sample_file("complex_object.html"))
+    await tab.wait_for_ready_state("complete")
+
+    result = await tab.evaluate("document.querySelector('body:not(.no-js)')")
+    assert result is not None
+
+    # This is similar to the original failing case but more likely to trigger the error
+    body_with_complex_refs = await tab.evaluate("document.body")
+    assert body_with_complex_refs is not None
+
+
+async def test_evaluate_return_by_value_modes(browser: zd.Browser) -> None:
+    tab = await browser.get(sample_file("complex_object.html"))
+    await tab.wait_for_ready_state("complete")
+
+    expression = "document.querySelector('body:not(.no-js)')"
+
+    result_by_value = await tab.evaluate(expression, return_by_value=True)
+    assert result_by_value is not None
+
+    result_false = await tab.evaluate(expression, return_by_value=False)
+    assert (
+        result_false is not None
+    )  # Should return the deep serialized value, not a tuple
+
+
+async def test_evaluate_stress_test_complex_objects(browser: zd.Browser) -> None:
+    tab = await browser.get(sample_file("complex_object.html"))
+    await tab.wait_for_ready_state("complete")
+
+    # Test various DOM queries that could trigger reference chain issues
+    # Each test case is a tuple of (expression, expected_type_or_validator)
+    test_cases = [
+        ("document.querySelector('body:not(.no-js)')", lambda x: x is not None),
+        ("document.documentElement", lambda x: x is not None),
+        ("document.querySelector('*')", lambda x: x is not None),
+        ("document.body.parentElement", lambda x: x is not None),
+        ("document.getElementById('content')", lambda x: x is not None),
+        (
+            "document.body.complexStructure ? 'has complex structure' : 'no structure'",
+            str,
+        ),
+        ("document.readyState", str),
+        ("navigator.userAgent", str),
+        ("window.location.href", str),
+        ("document.title", str),
+    ]
+
+    for expression, validator in test_cases:
+        result = await tab.evaluate(expression)
+        # Verify the result is usable and matches expected type/validation
+        if callable(validator):
+            assert validator(
+                result
+            ), f"Result validation failed for '{expression}': {result}"
+        elif isinstance(validator, type):
+            assert isinstance(
+                result, validator
+            ), f"Expected {validator} for '{expression}', got {type(result)}: {result}"
+        else:
+            raise ValueError("Validator must be a type or callable")
