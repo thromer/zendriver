@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fix for calls to `evaluate` that return JSON: only set `serialization_options` when `return_by_value=False` @thromer
+- Fix download_path error in `DownloadExpectation` (https://github.com/cdpdriver/zendriver/issues/184) @MadsHangaard
 
 ### Added
 
