@@ -6,14 +6,15 @@
 # CDP domain: DOM
 
 from __future__ import annotations
+
 import enum
 import typing
 from dataclasses import dataclass
-from .util import event_class, T_JSON_DICT
 
-from . import page
-from . import runtime
 from deprecated.sphinx import deprecated  # type: ignore
+
+from . import page, runtime
+from .util import T_JSON_DICT, event_class
 
 
 class NodeId(int):
@@ -682,10 +683,7 @@ class CSSComputedStyleProperty:
 
     @classmethod
     def from_json(cls, json: T_JSON_DICT) -> CSSComputedStyleProperty:
-        return cls(
-            name=str(json["name"]),
-            value=str(json["value"]),
-        )
+        return cls(name=str(json["name"]), value=str(json["value"]))
 
 
 def collect_class_names_from_subtree(
@@ -730,10 +728,7 @@ def copy_to(
     params["targetNodeId"] = target_node_id.to_json()
     if insert_before_node_id is not None:
         params["insertBeforeNodeId"] = insert_before_node_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.copyTo",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.copyTo", "params": params}
     json = yield cmd_dict
     return NodeId.from_json(json["nodeId"])
 
@@ -767,10 +762,7 @@ def describe_node(
         params["depth"] = depth
     if pierce is not None:
         params["pierce"] = pierce
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.describeNode",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.describeNode", "params": params}
     json = yield cmd_dict
     return Node.from_json(json["node"])
 
@@ -800,10 +792,7 @@ def scroll_into_view_if_needed(
         params["objectId"] = object_id.to_json()
     if rect is not None:
         params["rect"] = rect.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.scrollIntoViewIfNeeded",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.scrollIntoViewIfNeeded", "params": params}
     json = yield cmd_dict
 
 
@@ -811,9 +800,7 @@ def disable() -> typing.Generator[T_JSON_DICT, T_JSON_DICT, None]:
     """
     Disables DOM agent for the given page.
     """
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.disable",
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.disable"}
     json = yield cmd_dict
 
 
@@ -830,10 +817,7 @@ def discard_search_results(
     """
     params: T_JSON_DICT = dict()
     params["searchId"] = search_id
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.discardSearchResults",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.discardSearchResults", "params": params}
     json = yield cmd_dict
 
 
@@ -848,10 +832,7 @@ def enable(
     params: T_JSON_DICT = dict()
     if include_whitespace is not None:
         params["includeWhitespace"] = include_whitespace
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.enable",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.enable", "params": params}
     json = yield cmd_dict
 
 
@@ -874,10 +855,7 @@ def focus(
         params["backendNodeId"] = backend_node_id.to_json()
     if object_id is not None:
         params["objectId"] = object_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.focus",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.focus", "params": params}
     json = yield cmd_dict
 
 
@@ -892,10 +870,7 @@ def get_attributes(
     """
     params: T_JSON_DICT = dict()
     params["nodeId"] = node_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getAttributes",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getAttributes", "params": params}
     json = yield cmd_dict
     return [str(i) for i in json["attributes"]]
 
@@ -920,10 +895,7 @@ def get_box_model(
         params["backendNodeId"] = backend_node_id.to_json()
     if object_id is not None:
         params["objectId"] = object_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getBoxModel",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getBoxModel", "params": params}
     json = yield cmd_dict
     return BoxModel.from_json(json["model"])
 
@@ -951,10 +923,7 @@ def get_content_quads(
         params["backendNodeId"] = backend_node_id.to_json()
     if object_id is not None:
         params["objectId"] = object_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getContentQuads",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getContentQuads", "params": params}
     json = yield cmd_dict
     return [Quad.from_json(i) for i in json["quads"]]
 
@@ -975,10 +944,7 @@ def get_document(
         params["depth"] = depth
     if pierce is not None:
         params["pierce"] = pierce
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getDocument",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getDocument", "params": params}
     json = yield cmd_dict
     return Node.from_json(json["root"])
 
@@ -1003,10 +969,7 @@ def get_flattened_document(
         params["depth"] = depth
     if pierce is not None:
         params["pierce"] = pierce
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getFlattenedDocument",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getFlattenedDocument", "params": params}
     json = yield cmd_dict
     return [Node.from_json(i) for i in json["nodes"]]
 
@@ -1070,10 +1033,7 @@ def get_node_for_location(
         params["includeUserAgentShadowDOM"] = include_user_agent_shadow_dom
     if ignore_pointer_events_none is not None:
         params["ignorePointerEventsNone"] = ignore_pointer_events_none
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getNodeForLocation",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getNodeForLocation", "params": params}
     json = yield cmd_dict
     return (
         BackendNodeId.from_json(json["backendNodeId"]),
@@ -1108,10 +1068,7 @@ def get_outer_html(
         params["objectId"] = object_id.to_json()
     if include_shadow_dom is not None:
         params["includeShadowDOM"] = include_shadow_dom
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getOuterHTML",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getOuterHTML", "params": params}
     json = yield cmd_dict
     return str(json["outerHTML"])
 
@@ -1129,10 +1086,7 @@ def get_relayout_boundary(
     """
     params: T_JSON_DICT = dict()
     params["nodeId"] = node_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getRelayoutBoundary",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getRelayoutBoundary", "params": params}
     json = yield cmd_dict
     return NodeId.from_json(json["nodeId"])
 
@@ -1155,10 +1109,7 @@ def get_search_results(
     params["searchId"] = search_id
     params["fromIndex"] = from_index
     params["toIndex"] = to_index
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getSearchResults",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getSearchResults", "params": params}
     json = yield cmd_dict
     return [NodeId.from_json(i) for i in json["nodeIds"]]
 
@@ -1167,9 +1118,7 @@ def hide_highlight() -> typing.Generator[T_JSON_DICT, T_JSON_DICT, None]:
     """
     Hides any highlight.
     """
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.hideHighlight",
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.hideHighlight"}
     json = yield cmd_dict
 
 
@@ -1177,9 +1126,7 @@ def highlight_node() -> typing.Generator[T_JSON_DICT, T_JSON_DICT, None]:
     """
     Highlights DOM node.
     """
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.highlightNode",
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.highlightNode"}
     json = yield cmd_dict
 
 
@@ -1187,9 +1134,7 @@ def highlight_rect() -> typing.Generator[T_JSON_DICT, T_JSON_DICT, None]:
     """
     Highlights given rectangle.
     """
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.highlightRect",
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.highlightRect"}
     json = yield cmd_dict
 
 
@@ -1199,9 +1144,7 @@ def mark_undoable_state() -> typing.Generator[T_JSON_DICT, T_JSON_DICT, None]:
 
     **EXPERIMENTAL**
     """
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.markUndoableState",
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.markUndoableState"}
     json = yield cmd_dict
 
 
@@ -1223,10 +1166,7 @@ def move_to(
     params["targetNodeId"] = target_node_id.to_json()
     if insert_before_node_id is not None:
         params["insertBeforeNodeId"] = insert_before_node_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.moveTo",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.moveTo", "params": params}
     json = yield cmd_dict
     return NodeId.from_json(json["nodeId"])
 
@@ -1251,10 +1191,7 @@ def perform_search(
     params["query"] = query
     if include_user_agent_shadow_dom is not None:
         params["includeUserAgentShadowDOM"] = include_user_agent_shadow_dom
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.performSearch",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.performSearch", "params": params}
     json = yield cmd_dict
     return (str(json["searchId"]), int(json["resultCount"]))
 
@@ -1272,10 +1209,7 @@ def push_node_by_path_to_frontend(
     """
     params: T_JSON_DICT = dict()
     params["path"] = path
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.pushNodeByPathToFrontend",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.pushNodeByPathToFrontend", "params": params}
     json = yield cmd_dict
     return NodeId.from_json(json["nodeId"])
 
@@ -1314,11 +1248,10 @@ def query_selector(
     params: T_JSON_DICT = dict()
     params["nodeId"] = node_id.to_json()
     params["selector"] = selector
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.querySelector",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.querySelector", "params": params}
+    print(f"THROMER cdp query_selector {cmd_dict=}")
     json = yield cmd_dict
+    print(f"THROMER cdp query_selector {json=}")
     return NodeId.from_json(json["nodeId"])
 
 
@@ -1335,10 +1268,7 @@ def query_selector_all(
     params: T_JSON_DICT = dict()
     params["nodeId"] = node_id.to_json()
     params["selector"] = selector
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.querySelectorAll",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.querySelectorAll", "params": params}
     json = yield cmd_dict
     return [NodeId.from_json(i) for i in json["nodeIds"]]
 
@@ -1355,9 +1285,7 @@ def get_top_layer_elements() -> (
 
     :returns: NodeIds of top layer elements
     """
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getTopLayerElements",
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getTopLayerElements"}
     json = yield cmd_dict
     return [NodeId.from_json(i) for i in json["nodeIds"]]
 
@@ -1377,10 +1305,7 @@ def get_element_by_relation(
     params: T_JSON_DICT = dict()
     params["nodeId"] = node_id.to_json()
     params["relation"] = relation
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getElementByRelation",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getElementByRelation", "params": params}
     json = yield cmd_dict
     return NodeId.from_json(json["nodeId"])
 
@@ -1391,9 +1316,7 @@ def redo() -> typing.Generator[T_JSON_DICT, T_JSON_DICT, None]:
 
     **EXPERIMENTAL**
     """
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.redo",
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.redo"}
     json = yield cmd_dict
 
 
@@ -1409,10 +1332,7 @@ def remove_attribute(
     params: T_JSON_DICT = dict()
     params["nodeId"] = node_id.to_json()
     params["name"] = name
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.removeAttribute",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.removeAttribute", "params": params}
     json = yield cmd_dict
 
 
@@ -1424,10 +1344,7 @@ def remove_node(node_id: NodeId) -> typing.Generator[T_JSON_DICT, T_JSON_DICT, N
     """
     params: T_JSON_DICT = dict()
     params["nodeId"] = node_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.removeNode",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.removeNode", "params": params}
     json = yield cmd_dict
 
 
@@ -1451,10 +1368,7 @@ def request_child_nodes(
         params["depth"] = depth
     if pierce is not None:
         params["pierce"] = pierce
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.requestChildNodes",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.requestChildNodes", "params": params}
     json = yield cmd_dict
 
 
@@ -1471,10 +1385,7 @@ def request_node(
     """
     params: T_JSON_DICT = dict()
     params["objectId"] = object_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.requestNode",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.requestNode", "params": params}
     json = yield cmd_dict
     return NodeId.from_json(json["nodeId"])
 
@@ -1503,10 +1414,7 @@ def resolve_node(
         params["objectGroup"] = object_group
     if execution_context_id is not None:
         params["executionContextId"] = execution_context_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.resolveNode",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.resolveNode", "params": params}
     json = yield cmd_dict
     return runtime.RemoteObject.from_json(json["object"])
 
@@ -1525,10 +1433,7 @@ def set_attribute_value(
     params["nodeId"] = node_id.to_json()
     params["name"] = name
     params["value"] = value
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.setAttributeValue",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.setAttributeValue", "params": params}
     json = yield cmd_dict
 
 
@@ -1548,10 +1453,7 @@ def set_attributes_as_text(
     params["text"] = text
     if name is not None:
         params["name"] = name
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.setAttributesAsText",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.setAttributesAsText", "params": params}
     json = yield cmd_dict
 
 
@@ -1577,10 +1479,7 @@ def set_file_input_files(
         params["backendNodeId"] = backend_node_id.to_json()
     if object_id is not None:
         params["objectId"] = object_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.setFileInputFiles",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.setFileInputFiles", "params": params}
     json = yield cmd_dict
 
 
@@ -1616,10 +1515,7 @@ def get_node_stack_traces(
     """
     params: T_JSON_DICT = dict()
     params["nodeId"] = node_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getNodeStackTraces",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getNodeStackTraces", "params": params}
     json = yield cmd_dict
     return (
         runtime.StackTrace.from_json(json["creation"])
@@ -1642,10 +1538,7 @@ def get_file_info(
     """
     params: T_JSON_DICT = dict()
     params["objectId"] = object_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getFileInfo",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getFileInfo", "params": params}
     json = yield cmd_dict
     return str(json["path"])
 
@@ -1660,9 +1553,7 @@ def get_detached_dom_nodes() -> (
 
     :returns: The list of detached nodes
     """
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getDetachedDomNodes",
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getDetachedDomNodes"}
     json = yield cmd_dict
     return [DetachedElementInfo.from_json(i) for i in json["detachedNodes"]]
 
@@ -1680,10 +1571,7 @@ def set_inspected_node(
     """
     params: T_JSON_DICT = dict()
     params["nodeId"] = node_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.setInspectedNode",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.setInspectedNode", "params": params}
     json = yield cmd_dict
 
 
@@ -1700,10 +1588,7 @@ def set_node_name(
     params: T_JSON_DICT = dict()
     params["nodeId"] = node_id.to_json()
     params["name"] = name
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.setNodeName",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.setNodeName", "params": params}
     json = yield cmd_dict
     return NodeId.from_json(json["nodeId"])
 
@@ -1720,10 +1605,7 @@ def set_node_value(
     params: T_JSON_DICT = dict()
     params["nodeId"] = node_id.to_json()
     params["value"] = value
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.setNodeValue",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.setNodeValue", "params": params}
     json = yield cmd_dict
 
 
@@ -1739,10 +1621,7 @@ def set_outer_html(
     params: T_JSON_DICT = dict()
     params["nodeId"] = node_id.to_json()
     params["outerHTML"] = outer_html
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.setOuterHTML",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.setOuterHTML", "params": params}
     json = yield cmd_dict
 
 
@@ -1752,9 +1631,7 @@ def undo() -> typing.Generator[T_JSON_DICT, T_JSON_DICT, None]:
 
     **EXPERIMENTAL**
     """
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.undo",
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.undo"}
     json = yield cmd_dict
 
 
@@ -1776,10 +1653,7 @@ def get_frame_owner(
     """
     params: T_JSON_DICT = dict()
     params["frameId"] = frame_id.to_json()
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getFrameOwner",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getFrameOwner", "params": params}
     json = yield cmd_dict
     return (
         BackendNodeId.from_json(json["backendNodeId"]),
@@ -1822,10 +1696,7 @@ def get_container_for_node(
         params["logicalAxes"] = logical_axes.to_json()
     if queries_scroll_state is not None:
         params["queriesScrollState"] = queries_scroll_state
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getContainerForNode",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getContainerForNode", "params": params}
     json = yield cmd_dict
     return (
         NodeId.from_json(json["nodeId"])
@@ -1873,10 +1744,7 @@ def get_anchor_element(
     params["nodeId"] = node_id.to_json()
     if anchor_specifier is not None:
         params["anchorSpecifier"] = anchor_specifier
-    cmd_dict: T_JSON_DICT = {
-        "method": "DOM.getAnchorElement",
-        "params": params,
-    }
+    cmd_dict: T_JSON_DICT = {"method": "DOM.getAnchorElement", "params": params}
     json = yield cmd_dict
     return NodeId.from_json(json["nodeId"])
 

@@ -404,6 +404,14 @@ class Element:
             return None
         return self.remote_object.object_id
 
+    async def get_properties(self):
+        self._remote_object = await self._tab.send(
+            cdp.dom.resolve_node(backend_node_id=self.backend_node_id)
+        )
+        if self._remote_object.object_id is None:
+            raise ValueError("could not resolve object id for %s" % self)
+        return None
+
     async def click(self) -> None:
         """
         Click the element.

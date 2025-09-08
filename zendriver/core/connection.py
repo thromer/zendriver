@@ -89,6 +89,7 @@ class Transaction(asyncio.Future[Any]):
         self.id: int | None = None
 
         self.method, *params = next(self.__cdp_obj__).values()
+        print(f"THROMER Transaction __init__ {self.method=} {params=}")
         if params:
             params = params.pop()
         self.params = params
@@ -115,6 +116,7 @@ class Transaction(asyncio.Future[Any]):
         :return:
         """
 
+        print(f"THROMER Transaction.call {response=}")
         if "error" in response:
             # set exception and bail out
             return self.set_exception(ProtocolException(response["error"]))

@@ -67,6 +67,16 @@ async def test_select(browser: zd.Browser) -> None:
     assert result.text == "Apples"
 
 
+async def test_select_by_id(browser: zd.Browser) -> None:
+    tab = await browser.get(sample_file("groceries.html"))
+
+    result = await tab.select("#download_file")
+
+    assert result is not None
+    assert result.tag == "button"
+    assert result.text == "Download List"
+
+
 async def test_xpath(browser: zd.Browser) -> None:
     tab = await browser.get(sample_file("groceries.html"))
 

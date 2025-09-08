@@ -6,7 +6,6 @@
 # CDP domain: Runtime
 
 from __future__ import annotations
-import enum
 import typing
 from dataclasses import dataclass
 from .util import event_class, T_JSON_DICT
@@ -1149,6 +1148,9 @@ def evaluate(
         0. **result** - Evaluation result.
         1. **exceptionDetails** - *(Optional)* Exception details.
     """
+    print(
+        f"THROMER evaluate {expression=}, {return_by_value=}, {(serialization_options is None)=}"
+    )
     params: T_JSON_DICT = dict()
     params["expression"] = expression
     if object_group is not None:
@@ -1186,6 +1188,7 @@ def evaluate(
         "params": params,
     }
     json = yield cmd_dict
+    print(f"THROMER evaluate {json=}")
     return (
         RemoteObject.from_json(json["result"]),
         ExceptionDetails.from_json(json["exceptionDetails"])
