@@ -394,7 +394,7 @@ class Browser:
             await self.stop()
             raise Exception(
                 (
-                    """
+                    f"""
                 ---------------------
                 Failed to connect to browser
                 ---------------------
@@ -402,7 +402,7 @@ class Browser:
                 In that case you need to pass no_sandbox=True
 
                 Another possible cause is having too small a value for
-                browser_connection_timeout.
+                browser_connection_timeout (currently {self.config.browser_connection_timeout}).
                 """
                 )
             )
