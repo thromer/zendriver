@@ -400,6 +400,9 @@ class Browser:
                 ---------------------
                 One of the causes could be when you are running as root.
                 In that case you need to pass no_sandbox=True
+
+                Another possible cause is having too small a value for
+                browser_connection_timeout.
                 """
                 )
             )
